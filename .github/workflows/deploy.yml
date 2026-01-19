@@ -35,7 +35,7 @@ jobs:
       - name: Install Databricks CLI
         run: curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
 
-      - name: Deploy Bundle to Prod
+      - name: Deploy Bundle to Prod 
         env:
           DATABRICKS_AUTH_TYPE: github-oidc
           DATABRICKS_HOST: ${{ vars.PROD_DATABRICKS_HOST }}

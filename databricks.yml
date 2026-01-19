@@ -7,7 +7,7 @@ variables:
     default: "/Workspace/Users/hosea.kidane@databricks.com/.bundle/databricks_app_bundle_testing/prod"
   prod_user:
     description: "Prod SP id"
-    default: "hosea.kidane@databricks.com"
+    default: "33f4858a-0464-4fb2-b1b0-20acb3dde95f"
 
 resources:
   apps:
@@ -26,7 +26,7 @@ targets:
   prod:
     mode: production
     workspace:
-      host: https://e2-demo-west.cloud.databricks.com
+      host: https://fevm-serverless-4114v3.cloud.databricks.com/
       root_path: ${var.prod_root_path}
     permissions:
       - user_name: ${var.prod_user}

@@ -43,5 +43,5 @@ targets:
       root_path: ${var.prod_root_path}
     permissions:
       - service_principal_name: ${var.prod_sp}
-        level: CAN_MANAGE
+        level: CAN_MANAGE 
 

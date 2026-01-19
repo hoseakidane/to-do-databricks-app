@@ -44,6 +44,4 @@ targets:
     permissions:
       - service_principal_name: ${var.prod_sp}
         level: CAN_MANAGE
-      - user_name: ${var.prod_users}
-        level: CAN_USE
 

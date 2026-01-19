@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main]
 
+permissions:                                                                                
+    id-token: write                                                                           
+    contents: read  
+
 jobs:
   validate:
     if: github.event_name == 'pull_request'
@@ -18,9 +22,9 @@ jobs:
 
       - name: Validate Bundle
         env:
-          DATABRICKS_HOST: ${{ secrets.PROD_DATABRICKS_HOST }}
-          DATABRICKS_CLIENT_ID: ${{ secrets.PROD_DATABRICKS_CLIENT_ID }}
-          DATABRICKS_CLIENT_SECRET: ${{ secrets.PROD_DATABRICKS_CLIENT_SECRET }}
+          DATABRICKS_AUTH_TYPE: github-oidc
+          DATABRICKS_HOST: ${{ vars.PROD_DATABRICKS_HOST }}
+          DATABRICKS_CLIENT_ID: ${{ vars.PROD_DATABRICKS_CLIENT_ID }}
         run: databricks bundle validate -t prod 
   deploy-prod:
     if: github.event_name == 'push'
@@ -34,13 +38,13 @@ jobs:
 
       - name: Deploy Bundle to Prod
         env:
-          DATABRICKS_HOST: ${{ secrets.PROD_DATABRICKS_HOST }}
-          DATABRICKS_CLIENT_ID: ${{ secrets.PROD_DATABRICKS_CLIENT_ID }}
-          DATABRICKS_CLIENT_SECRET: ${{ secrets.PROD_DATABRICKS_CLIENT_SECRET }}
+          DATABRICKS_AUTH_TYPE: github-oidc
+          DATABRICKS_HOST: ${{ vars.PROD_DATABRICKS_HOST }}
+          DATABRICKS_CLIENT_ID: ${{ vars.PROD_DATABRICKS_CLIENT_ID }}
         run: databricks bundle deploy -t prod 
       - name: Run App
         env:
-          DATABRICKS_HOST: ${{ secrets.PROD_DATABRICKS_HOST }}
-          DATABRICKS_CLIENT_ID: ${{ secrets.PROD_DATABRICKS_CLIENT_ID }}
-          DATABRICKS_CLIENT_SECRET: ${{ secrets.PROD_DATABRICKS_CLIENT_SECRET }}
-        run: databricks bundle run todo_list_app_bundle -t prod --var="workspace_profile="
+          DATABRICKS_AUTH_TYPE: github-oidc
+          DATABRICKS_HOST: ${{ vars.PROD_DATABRICKS_HOST }}
+          DATABRICKS_CLIENT_ID: ${{ vars.PROD_DATABRICKS_CLIENT_ID }}
+        run: databricks bundle run todo_list_app_bundle -t prod

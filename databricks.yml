@@ -1,0 +1,34 @@
+bundle:
+  name: databricks_app_bundle_testing
+
+variables:
+  prod_root_path:
+    description: "Prod deployment path"
+    default: "/Workspace/Users/hosea.kidane@databricks.com/.bundle/databricks_app_bundle_testing/prod"
+  prod_user:
+    description: "Prod SP id"
+    default: "hosea.kidane@databricks.com"
+
+resources:
+  apps:
+    todo_list_app_bundle:
+      name: 'todo-list-app'
+      source_code_path: .
+      description: 'Todo list app for testing app bundle deployment'
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      profile: e2-demo-west
+
+  prod:
+    mode: production
+    workspace:
+      profile: e2-demo-west
+      root_path: ${var.prod_root_path}
+    permissions:
+      - user_name: ${var.prod_user}
+        level: CAN_MANAGE
+

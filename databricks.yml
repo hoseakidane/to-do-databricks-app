@@ -10,7 +10,7 @@ variables:
     default: "hosea.kidane@databricks.com"
   prod_sp:
     description: "Prod SP id for deployment and changes"
-    default: "hk-account-level-sp"
+    default: "hk-account-level-sp" 
 
 permissions:
   - group_name: users

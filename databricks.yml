@@ -5,9 +5,16 @@ variables:
   prod_root_path:
     description: "Prod deployment path"
     default: "/Workspace/Users/hosea.kidane@databricks.com/.bundle/databricks_app_bundle_testing/prod"
-  prod_user:
-    description: "Prod SP id"
+  prod_users:
+    description: "App users"
     default: "hosea.kidane@databricks.com"
+  prod_sp:
+    description: "Prod SP id for deployment and changes"
+    default: "hk-account-level-sp" 
+
+permissions:
+  - group_name: users
+    level: CAN_VIEW
 
 resources:
   apps:
@@ -15,20 +22,26 @@ resources:
       name: 'todo-list-app'
       source_code_path: .
       description: 'Todo list app for testing app bundle deployment'
+      permissions:
+        - user_name: ${var.prod_users}
+          level: CAN_USE
 
 targets:
   dev:
     mode: development
     default: true
     workspace:
-      profile: e2-demo-west
+      profile: DEFAULT
+    permissions:
+      - user_name: ${var.prod_users}
+        level: CAN_MANAGE
 
   prod:
     mode: production
     workspace:
-      profile: e2-demo-west
+      host: https://fe-sandbox-serverless-182sr3.cloud.databricks.com/
       root_path: ${var.prod_root_path}
     permissions:
-      - user_name: ${var.prod_user}
-        level: CAN_MANAGE
+      - service_principal_name: ${var.prod_sp}
+        level: CAN_MANAGE 
 

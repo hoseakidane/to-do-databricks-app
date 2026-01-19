@@ -9,8 +9,8 @@ variables:
     description: "App users"
     default: "hosea.kidane@databricks.com"
   prod_sp:
-    description: "Prod SP id for deployment and changes"
-    default: "hk-account-level-sp" 
+    description: "Prod SP app id or uuid for deployment and changes"
+    default: "4c9263a0-4412-452a-a613-5394dbe10e3a" 
 
 permissions:
   - group_name: users

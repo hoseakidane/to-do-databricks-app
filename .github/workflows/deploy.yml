@@ -21,8 +21,7 @@ jobs:
           DATABRICKS_HOST: ${{ secrets.PROD_DATABRICKS_HOST }}
           DATABRICKS_CLIENT_ID: ${{ secrets.PROD_DATABRICKS_CLIENT_ID }}
           DATABRICKS_CLIENT_SECRET: ${{ secrets.PROD_DATABRICKS_CLIENT_SECRET }}
-        run: databricks bundle validate -t prod
-
+        run: databricks bundle validate -t prod 
   deploy-prod:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
@@ -38,11 +37,10 @@ jobs:
           DATABRICKS_HOST: ${{ secrets.PROD_DATABRICKS_HOST }}
           DATABRICKS_CLIENT_ID: ${{ secrets.PROD_DATABRICKS_CLIENT_ID }}
           DATABRICKS_CLIENT_SECRET: ${{ secrets.PROD_DATABRICKS_CLIENT_SECRET }}
-        run: databricks bundle deploy -t prod
-
+        run: databricks bundle deploy -t prod 
       - name: Run App
         env:
           DATABRICKS_HOST: ${{ secrets.PROD_DATABRICKS_HOST }}
           DATABRICKS_CLIENT_ID: ${{ secrets.PROD_DATABRICKS_CLIENT_ID }}
           DATABRICKS_CLIENT_SECRET: ${{ secrets.PROD_DATABRICKS_CLIENT_SECRET }}
-        run: databricks bundle run todo_list_app_bundle -t prod
+        run: databricks bundle run todo_list_app_bundle -t prod --var="workspace_profile="

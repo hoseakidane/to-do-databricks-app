@@ -26,7 +26,7 @@ targets:
   prod:
     mode: production
     workspace:
-      profile: e2-demo-west
+      host: https://e2-demo-west.cloud.databricks.com
       root_path: ${var.prod_root_path}
     permissions:
       - user_name: ${var.prod_user}

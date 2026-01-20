@@ -17,6 +17,19 @@ permissions:
     level: CAN_VIEW
 
 resources:
+  
+  database_instances:
+    todo_db:
+      name: todo-list-db-${bundle.target} 
+      capacity: CU_1
+
+  database_catalogs:
+    todo_catalog: 
+      database_instance_name: ${resources.database_instances.todo-db.name}
+      name: todo_catalog
+      database_name: todo_database
+      create_database_if_not_exists: true
+
   apps:
     todo_list_app_bundle:
       name: 'todo-list-app'
@@ -25,6 +38,13 @@ resources:
       permissions:
         - user_name: ${var.prod_users}
           level: CAN_USE
+      resources:  
+        - name: database
+          database:
+            instance_name: ${resources.database_instances.todo-db.name}
+            database_name: ${resources.database_catalogs.todo_catalog.database_name}
+            permission: CAN_CONNECT_AND_CREATE
+
 
 targets:
   dev:

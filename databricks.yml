@@ -15,6 +15,8 @@ variables:
 permissions:
   - group_name: users
     level: CAN_VIEW
+  - user_name: hosea.kidane@databricks.com
+    level: CAN_MANAGE
 
 resources:
   
@@ -25,7 +27,7 @@ resources:
 
   database_catalogs:
     todo_catalog: 
-      database_instance_name: ${resources.database_instances.todo-db.name}
+      database_instance_name: ${resources.database_instances.todo_db.name}
       name: todo_catalog
       database_name: todo_database
       create_database_if_not_exists: true
@@ -41,7 +43,7 @@ resources:
       resources:  
         - name: database
           database:
-            instance_name: ${resources.database_instances.todo-db.name}
+            instance_name: ${resources.database_instances.todo_db.name}
             database_name: ${resources.database_catalogs.todo_catalog.database_name}
             permission: CAN_CONNECT_AND_CREATE
 

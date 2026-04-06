@@ -35,7 +35,7 @@ resources:
   apps:
     todo_list_app_bundle:
       name: 'todo-list-app'
-      source_code_path: .
+      source_code_path: ./src/
       description: 'Todo list app for testing app bundle deployment'
       permissions:
         - user_name: ${var.prod_users}
